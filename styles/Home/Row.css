@@ -1,0 +1,45 @@
+.row {
+    display: grid;
+  }
+.catagoryTitle {
+  font-size: 2rem;
+  margin: 1rem 1rem;
+  color: white;
+}
+.row__cards {
+    grid-row: 1/2; /* Cards will be in the first (and only) row */
+    grid-column: 1/2; /* Cards will occupy the first column */
+    width: 100%;
+    display: flex;
+    overflow-x:scroll;
+
+  }
+  
+.row__cards::-webkit-scrollbar {
+    display: none; /* For webkit-based browsers like Chrome and Safari */
+    width: s0; /* For IE */
+    background: transparent; /* For Firefox */
+  }
+  
+.row__buttons {
+    pointer-events: none;
+    height: 100%;
+    grid-row: 1/2; /* Buttons will be in the first (and only) row */
+    grid-column: 1/2; /* Buttons will occupy the first column */
+    align-self: center;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+}
+  
+.row__button {
+    pointer-events: visible;
+    height: 100%; 
+    background-color: rgb(0, 0, 0,0.75);
+    color: white;
+    opacity: 0;
+}
+.row__button:hover{
+    opacity: 1;
+  }
+  

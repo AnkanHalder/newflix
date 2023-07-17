@@ -1,0 +1,110 @@
+/* Banner.css */
+.banner__container {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner__image {
+    width: 100%;
+    overflow: hidden;
+}
+
+.banner__content {
+    position: absolute;
+    top: 40%;
+    left: 10vw;
+    width: 60%;
+    color: #fff;
+    z-index: 1;
+    animation: bannerContentAnimation 2s 10s forwards;
+}
+
+.banner__title {
+    font-size: 5vw;
+    transform: translateY(-60%);
+    margin-bottom: 2.5rem;
+    animation: vidTitleAnimation 2s 10s forwards;
+}
+
+.banner__description {
+    font-size: 2vw;
+    transform: translateY(-50%);
+    animation: vidDescAnimation 2s 10s forwards;
+}
+
+.banner__buttons {
+    display: flex;
+}
+
+.banner__button {
+    background-color: black;
+    height: 4.5vw;
+    width: 4.5vw;
+    border: none;
+    cursor: pointer;
+    margin-right: 1vw;
+    color: white;
+    transition: transform 2s ease-in-out;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+    font-size: 2vw;
+    display: flex;
+    justify-content: center; /* Horizontal centering */
+    align-items: center; /* Vertical centering */
+    transform-style: preserve-3d;
+    transform: translateZ(-20px);
+}
+
+.banner__buttons .moreDetailsBtn {
+    width: max(7rem, 8vw);
+    border-radius: 20%;
+}
+
+.banner__buttons .watchListBtn,
+.banner__buttons .playBtn {
+    border-radius: 50%;
+}
+
+.banner__buttons .watchListBtn:hover,
+.banner__buttons .playBtn:hover,
+.banner__buttons .moreDetailsBtn:hover {
+    scale: 1.2;
+}
+
+.banner__buttons .watchListBtn:active,
+.banner__buttons .playBtn:active,
+.banner__buttons .moreDetailsBtn:active {
+    scale: 0.8;
+}
+@keyframes vidDescAnimation {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    20% {
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        height: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+@keyframes bannerContentAnimation{
+    0% {
+        top: 40%;
+    }
+    100% {
+        top: 60%;
+    }
+}
+@keyframes vidTitleAnimation {
+    0% {
+        font-size: 5vw;
+    }
+    100% {
+        font-size: 2.5vw;
+        margin-bottom: 0rem;
+    }
+}
