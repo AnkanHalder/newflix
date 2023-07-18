@@ -3,6 +3,7 @@ import "@/styles/Home/Banner.css";
 import serverInstance from "@/api/axios";
 import requests from "@/api/requests";
 import { useEffect, useState } from "react";
+import { PlayBtn,WatchListBtn,LikeBtn } from "@/utils/icons";
 import ReactPlayer from "react-player";
 
 
@@ -35,8 +36,8 @@ const Banner = () => {
                 <div className="banner__title">{bannerDetails?.vidName}</div>
                 <div className="banner__description">{truncate(bannerDetails?.vidDescription, 150)}</div>
                   {isVideoReady && <div className="banner__buttons">
-                    <button className="banner__button playBtn">{">"}</button>
-                    <button className="banner__button watchListBtn">+</button>
+                    <button className="banner__button playBtn"> <PlayBtn id={bannerDetails?._id}/></button>
+                    <button className="banner__button watchListBtn"><WatchListBtn/></button>
                     <button className="banner__button moreDetailsBtn">More</button>
                   </div>}
               </div>

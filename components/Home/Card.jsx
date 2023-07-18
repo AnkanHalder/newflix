@@ -24,7 +24,7 @@ export const Card = (props) => {
         <div className="card__content">
           <h1 className="card__title">{vidDetails.vidName}</h1>
           <div className="card__buttons">
-            <PlayBtn />
+            <PlayBtn id={vidDetails._id}/>
             <WatchListBtn added={false}  />
             <LikeBtn liked={true} />
           </div>

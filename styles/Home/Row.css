@@ -4,7 +4,8 @@
 .catagoryTitle {
   font-size: 2rem;
   margin: 1rem 1rem;
-  color: white;
+  color: var(--color-primary,rgb(218, 4, 93));
+  animation: colorAnim 4s linear infinite;
 }
 .row__cards {
     grid-row: 1/2; /* Cards will be in the first (and only) row */
@@ -17,7 +18,7 @@
   
 .row__cards::-webkit-scrollbar {
     display: none; /* For webkit-based browsers like Chrome and Safari */
-    width: s0; /* For IE */
+    width: 0; /* For IE */
     background: transparent; /* For Firefox */
   }
   
@@ -27,7 +28,7 @@
     grid-row: 1/2; /* Buttons will be in the first (and only) row */
     grid-column: 1/2; /* Buttons will occupy the first column */
     align-self: center;
-    z-index: 10;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
 }
@@ -41,5 +42,7 @@
 }
 .row__button:hover{
     opacity: 1;
-  }
+}
+
+
   

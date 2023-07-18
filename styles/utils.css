@@ -1,0 +1,15 @@
+.playBtn,.watchListBtn,.likeBtn {
+    color: white;
+}
+.playBtn a,.watchListBtn a,.likeBtn a{
+    color: white;
+}
+.playBtn:hover,.watchListBtn:hover,.likeBtn:hover {
+    scale: 1.2;
+    color: var(--color-primary,rgb(218, 4, 93));
+}
+.playBtn:hover a,.watchListBtn:hover a,.likeBtn:hover a{
+    scale: 1.2;
+    color: var(--color-primary,rgb(218, 4, 93));
+}
+

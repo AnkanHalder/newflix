@@ -74,7 +74,7 @@ const Row = (props) => {
 
     return (
         <div>
-            <h1 className="catagoryTitle">{props.catagory}</h1>
+            <h1 className="catagoryTitle">Watch {props.catagory} Videos </h1>
             <div className='row'>
                 <div ref={rowCardsRef} className="row__cards">
                     {cards}
@@ -83,11 +83,11 @@ const Row = (props) => {
                 </div>
                 <div className="row__buttons">
                     <button className="row__button scrollLeft" 
-                        style={{opacity:(scrollable.left)?"1":"0.5"}}
+                        style={{visibility:(scrollable.left)?"visible":"hidden"}}
                         onPointerDown={startScrollLeft} 
                          onPointerUp={stopScrolling}>Scroll Left</button>
                     <button className="row__button scrollRight" 
-                         style={{opacity:(scrollable.right)?"1":"0.5"}}
+                         style={{visibility:(scrollable.right)?"visible":"hidden"}}
                          onPointerDown={startScrollRight}
                          onPointerUp={stopScrolling}>Scroll Right</button>
                  </div>       

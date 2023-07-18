@@ -59,3 +59,24 @@ html {
 	box-sizing: border-box;
 	font-size: 62.5%;
 }
+
+:root {
+	--color-primary: rgb(255, 0, 98);
+	--color--grad2: rgb(255, 225, 0);
+	--color--grad1: rgb(251, 77, 3);
+}
+
+@keyframes colorAnim {
+  0% {
+	color: rgb(255, 0, 98);
+  }
+  25% {
+	color:rgb(206, 41, 132);
+  }
+  50%{
+	color: rgb(255, 225, 0);
+  }
+  100% {
+	color: rgb(255, 0, 98);
+  }
+}

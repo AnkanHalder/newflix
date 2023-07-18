@@ -1,0 +1,27 @@
+.loginSignUpPage{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    background: rgba(0, 0, 0, 0.5) url("https://cdn.mos.cms.futurecdn.net/rDJegQJaCyGaYysj2g5XWY.jpg");
+    background-blend-mode: darken;
+    vertical-align: middle;
+    height: 100vh;
+    width:100vw;
+}
+.login1 {
+
+  }
+
+.auth-form {
+    max-width: 300px;
+    margin: 60px auto;
+    height: 350px;
+    padding: 30px;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.781);
+  }
+  
