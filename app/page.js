@@ -1,4 +1,4 @@
-import Home from "@/components/Home"
+import Home from "@/PageComponents/Home"
 
 export default function Index() {
   return (

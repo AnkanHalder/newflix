@@ -1,6 +1,45 @@
+/* CSS */
 .card {
     display: flex;
+    position: relative;
 }
-.card__image{
+.card__content{
+    position: absolute;
+    z-index: 10;
+    color: white;
+    font-size:2rem;
+    display: grid;
+    align-self: center;
+    margin-left: 10%;
+}
+.card__buttons {
+    display: flex;
+    font-size: 3rem;
+    margin-top: 5%;
+}
+.card__buttons .playBtn,.card__buttons .watchListBtn {
+    font-size: 4rem;
+}
+.card__image {
+    position: relative;
     width: 24rem;
+  }
+  
+.card__video {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    max-width: 24rem;
+    display: grid;
+    align-self: center;
+    justify-self: center;
+    border: 0.5rem solid white;
+  }
+  
+.card:hover .card__image {
+    visibility: hidden;
+  }
+.card:hover .card__video {
+    width: 30rem;
 }
+  

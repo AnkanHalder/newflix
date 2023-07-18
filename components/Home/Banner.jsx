@@ -41,8 +41,7 @@ const Banner = () => {
                   </div>}
               </div>
             </>
-          
-            <video className="banner__image" onCanPlay={handleVideoReady} src={bannerDetails?.vidVideoLink} autoPlay loop muted />  
+            <video className="banner__video" onCanPlay={handleVideoReady} src={bannerDetails?.vidVideoLink} autoPlay loop muted />  
           </div>
         )}
     </div>

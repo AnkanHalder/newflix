@@ -4,8 +4,10 @@
     position: relative;
     overflow: hidden;
 }
-
-.banner__image {
+.banner__image{
+    width:100%;
+}
+.banner__video {
     width: 100%;
     overflow: hidden;
 }
