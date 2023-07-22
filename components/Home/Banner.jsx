@@ -1,11 +1,9 @@
 "use client";
 import "@/styles/Home/Banner.css";
-import serverInstance from "@/api/axios";
-import requests from "@/api/requests";
 import { useEffect, useState } from "react";
-import { PlayBtn,WatchListBtn,LikeBtn } from "@/utils/icons";
-import ReactPlayer from "react-player";
-
+import { PlayBtn,WatchListBtn } from "@/utils/icons";
+import Link from 'next/link';
+import apiCaller from "@/api/apiCaller";
 
 function truncate(str,n) {
   return str?.length > n ? str.substr(0,n-1) + ' ...' : ''; 
@@ -20,12 +18,9 @@ const Banner = () => {
     setIsVideoReady(true); // Set isVideoReady to true when video is ready
   };
   useEffect(() => { 
-    serverInstance.get(requests.search + limit.toString()).then((response) =>{
-      setBannerDetails(response.data[Math.floor(Math.random()*response.data.length)]);
-      console.log(response.data,bannerDetails);
-    });
-
-
+    apiCaller.search(limit).then((videoData) => {
+      setBannerDetails(videoData[Math.floor(Math.random()*videoData.length)]);
+  });
   },[]);
   return (
     <div className="banner">
@@ -36,13 +31,14 @@ const Banner = () => {
                 <div className="banner__title">{bannerDetails?.vidName}</div>
                 <div className="banner__description">{truncate(bannerDetails?.vidDescription, 150)}</div>
                   {isVideoReady && <div className="banner__buttons">
-                    <button className="banner__button playBtn"> <PlayBtn id={bannerDetails?._id}/></button>
-                    <button className="banner__button watchListBtn"><WatchListBtn/></button>
-                    <button className="banner__button moreDetailsBtn">More</button>
+                  <div className="banner__button"><PlayBtn id={bannerDetails._id}/></div>
+                  <div className="banner__button"><WatchListBtn  data={bannerDetails} /></div>
+                    <Link href={"/videoDetails/" + bannerDetails?._id} ><button className="banner__button moreDetailsBtn"><p>More..</p></button>
+                    </Link>
                   </div>}
               </div>
             </>
-            <video className="banner__video" onCanPlay={handleVideoReady} src={bannerDetails?.vidVideoLink} autoPlay loop muted />  
+            <video className="banner__video" onCanPlay={handleVideoReady} src={bannerDetails?.vidVideoLink} autoPlay loop />  
           </div>
         )}
     </div>

@@ -3,9 +3,29 @@
   }
 .catagoryTitle {
   font-size: 2rem;
+  font-weight: 800;
   margin: 1rem 1rem;
-  color: var(--color-primary,rgb(218, 4, 93));
-  animation: colorAnim 4s linear infinite;
+  color: white;
+}
+.catagoryTitle:hover {
+  animation: colorAnim 2s infinite;
+}
+.catagoryTitle::after{
+  content: 'EXPLORE MORE >>>';
+  opacity: 0;
+  transform: translateX(-100%);
+  font-size: 1rem;
+  position: absolute;
+  margin-top: 0.6rem;
+  visibility: hidden;
+  animation: colorAnim 2s infinite;
+  z-index: -1;
+  transition: 0.4s linear;
+}
+.catagoryTitle:hover::after{
+  visibility: visible;
+  transform: translateX(20%);
+  opacity: 1;
 }
 .row__cards {
     grid-row: 1/2; /* Cards will be in the first (and only) row */

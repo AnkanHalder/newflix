@@ -22,7 +22,7 @@
     z-index: 100;
     color: white;
     margin-left: 8%;
-    animation: moveItem 3s 12.5s forwards;
+    animation: moveItem 3s 11s forwards;
 }
 
 .banner__title {
@@ -45,11 +45,11 @@
 }
 
 .banner__button {
+    pointer-events: none;
     background-color: black;
     height: 4.5vw;
     width: 4.5vw;
     border: none;
-    cursor: pointer;
     margin-right: 1vw;
     color: white;
     transition: transform 2s ease-in-out;
@@ -58,8 +58,11 @@
     display: flex;
     justify-content: center; 
     align-items: center; 
+    border-radius: 50%;
 }
-
+.banner__button a{
+    text-decoration: none;
+}
 .banner__buttons .moreDetailsBtn {
     width: max(7rem, 8vw);
     border-radius: 20%;
@@ -68,12 +71,16 @@
 .banner__buttons .watchListBtn,
 .banner__buttons .playBtn {
     border-radius: 50%;
+    pointer-events: all;
 }
 
 .banner__buttons .watchListBtn:hover,
 .banner__buttons .playBtn:hover,
 .banner__buttons .moreDetailsBtn:hover {
-    scale: 1.2;
+    scale: 1.2;  
+}
+.banner__buttons  a {
+    text-decoration: none;
 }
 
 .banner__buttons .watchListBtn:active,

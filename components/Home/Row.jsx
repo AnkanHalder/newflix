@@ -2,8 +2,8 @@
 import "@/styles/Home/Row.css";
 import React, { useEffect, useRef, useState } from 'react';
 import { Card } from './Card';
-import requests from '@/api/requests';
-import serverInstance from '@/api/axios';
+import Link from "next/link";
+
 
 const Row = (props) => {
     const [cards, setCards] = useState([]);
@@ -54,15 +54,13 @@ const Row = (props) => {
             ) r = true;
             if (scrollLeft > 0 ) l = true;    
         }
-        console.log(l,r);
         setScrollable({ right: r, left:l });
     };
 
     useEffect(() => {
-        serverInstance.get( requests.searchByCatagory + props.catagory).then((response) => {
-            const videoData = response.data;
+        props.getCardDataFunction(props.params).then((videoData) => {
             const cardComponents = videoData.map((videoDetails) => {
-                return <Card key={videoDetails.id} vidDetails={videoDetails} />;
+                return <Card key={videoDetails._id+props.heading} vidDetails={videoDetails} />;
             });
             setCards(cardComponents);
         });
@@ -70,15 +68,16 @@ const Row = (props) => {
         return () => {
             setCards([]);
         };
-    }, []);
+    }, [props.getCardDataFunction]);
 
+    if (cards==[] || cards==null || cards == ""){
+        return null
+    }
     return (
         <div>
-            <h1 className="catagoryTitle">Watch {props.catagory} Videos </h1>
+            <Link href={"/CatagoryDetails/"+props.params}><h1 className="catagoryTitle">Watch {props.heading} Videos </h1></Link>
             <div className='row'>
                 <div ref={rowCardsRef} className="row__cards">
-                    {cards}
-                    {cards}
                     {cards}
                 </div>
                 <div className="row__buttons">

@@ -1,11 +1,14 @@
+"use client"
 import Home from "@/PageComponents/Home";
 import LoginSignUpPage from "@/PageComponents/LoginSignUpPage";
+import { UserAuth } from '@/context/authContext';
 
 export default function Index() {
+  const {user} = UserAuth();
   return (
     <main>
-    <LoginSignUpPage/>
-      {/* <Home/> */}
+    {(user==null)?<LoginSignUpPage/>:
+       <Home/> }
     </main>
   
   )
