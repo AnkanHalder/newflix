@@ -3,6 +3,7 @@ import React,{useState} from 'react'
 import "@/styles/LoginSignUp/LoginSignUp.css";
 import GoogleButton from 'react-google-button'
 import { UserAuth } from '@/context/authContext';
+import PopUp from '@/utils/PopUp';
 
 const LoginSignUpPage = () => {
   const {user,googleSignIn,logOut} = UserAuth();
@@ -15,6 +16,7 @@ const LoginSignUpPage = () => {
   } 
   return (
     <div className='loginSignUpPage'>
+    <PopUp />
         <div className='form__container'>
             <div className="login1">
                 <form className="auth-form">

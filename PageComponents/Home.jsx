@@ -7,6 +7,7 @@ import withAuth from "@/utils/withAuth";
 import Nav from "@/components/Nav";
 import apiCaller from "@/api/apiCaller";
 import UserRows from "@/components/Home/UserRows";
+import PopUp from "@/utils/PopUp";
 const  Home = () => {
   return (
     <main>
