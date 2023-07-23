@@ -4,6 +4,7 @@ import "@/styles/Home/Card.css";
 import { LikeBtn,WatchListBtn, PlayBtn} from "@/utils/icons";
 import Link from "next/link";
 import YouTubePlayer from "react-player/youtube";
+import {BsInfo} from "react-icons/bs";
 
 
 export const Card = (props) => {
@@ -44,7 +45,7 @@ export const Card = (props) => {
     <div className='card' onPointerEnter={handleMouseEnter} onPointerLeave={handleMouseLeave}>
         <Link href={"/videoDetails/" + vidDetails?._id} >
         {isVideoPlaying && !smallScreen &&  
-        <YouTubePlayer className="card__video" playing="true" muted="false" url={vidDetails?.vidYTBVideoLink}
+        <YouTubePlayer style={{pointerEvents:"none"}} className="card__video" playing="true" muted="false" url={vidDetails?.vidYTBVideoLink}
               loop="true" width="100%" height="100%"/>}
         <img className='card__image' src={(smallScreen)?vidDetails.vidPosterLink : vidDetails.vidBackdropLink}
          alt={vidDetails.vidName}></img>
@@ -54,7 +55,8 @@ export const Card = (props) => {
           <div className="card__buttons">
           <div className="card__button"><PlayBtn id={vidDetails._id}/></div>
           <div className="card__button"><WatchListBtn  data={vidDetails} /></div>
-          <div className="card__button"><LikeBtn data={vidDetails} /></div>          
+          <div className="card__button"><LikeBtn data={vidDetails} /></div>
+          <div className="card__button"><Link href={"/videoDetails/"+vidDetails?._id}><BsInfo /></Link></div>            
           </div>
         </div>} 
         <div className="progress-bar" style={{color:"red"}}>
