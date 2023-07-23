@@ -5,6 +5,7 @@ import serverInstance from "@/api/axios";
 import withAuth from "@/utils/withAuth";
 import apiCaller from "@/api/apiCaller";
 import { UserAuth } from "@/context/authContext";
+import YouTubePlayer from "react-player/youtube";
 
 
 
@@ -21,38 +22,31 @@ const PlayVideo = (props) => {
     });
   }, [props.id]);
   useEffect(() => {
-      if (videoRef.current) {
-        if(userSettings && vidDetails && userSettings.userWatched!=null&&userSettings.userWatched!=undefined){  
-          const index = userSettings.userWatched.findIndex((obj)=> obj.videoDetails._id.toString() == vidDetails._id.toString());
-          if(index!=-1){
-            videoRef.current.currentTime = parseFloat(userSettings.userWatched[index].percentWatched).toFixed(2);
-          } else{
-            const newUserWatched = {
-              percentWatched: 0.00, 
-              videoDetails: vidDetails 
-            }
-            setUserSettings({...userSettings, userWatched : [...userSettings.userWatched,newUserWatched]});
-          } 
+    if (videoRef.current) {
+      if(userSettings && vidDetails && userSettings.userWatched!=null&&userSettings.userWatched!=undefined){  
+        const index = userSettings.userWatched.findIndex((obj)=> obj.videoDetails._id.toString() == vidDetails._id.toString());
+        if(index!=-1){
+          videoRef.current.currentTime = parseFloat(userSettings.userWatched[index].percentWatched).toFixed(2);
+        } else{
+          const newUserWatched = {
+            percentWatched: 0.00, 
+            videoDetails: vidDetails 
+          }
+          setUserSettings({...userSettings, userWatched : [...userSettings.userWatched,newUserWatched]});
         } 
-        videoRef.current.addEventListener("loadedmetadata", handleMetadataLoaded);
-      }
-      return () => {
-        if (videoRef.current) {
-          videoRef.current.removeEventListener("loadedmetadata", handleMetadataLoaded);
-        }
-      };
-  }, [videoRef.current]);
-
+      } 
+    }
+}, [videoRef.current]);
   //USE EFFECT to backUP to server once immediately and once every 15 mins
   useEffect(()=>{
-    let watchedDuration = localStorage.getItem(`watched_${props.id}`);
+    let watchedDuration = JSON.parse(localStorage.getItem(`watched_${props.id}`))?.played*100;
     //BACKUP ONCE IMMEDIATELY
     if (isNaN(watchedDuration) || watchedDuration == null || watchedDuration == undefined) watchedDuration=0;
       // Make the API call to back up the data immediately
     if (vidDetails != null)apiCaller.addToWatchedVideos(user.email, vidDetails, watchedDuration);
     //BACK UP WATCHED DATA EVERY 15 MINUTES
     const backupInterval = setInterval(() => {
-      watchedDuration = localStorage.getItem(`watched_${props.id}`);
+      watchedDuration = JSON.parse(localStorage.getItem(`watched_${props.id}`))?.played*100;
       if(isNaN(watchedDuration) || watchedDuration==null || watchedDuration==undefined) watchedDuration = 0
         // Make the API call to back up the data
         if (vidDetails != null)apiCaller.addToWatchedVideos(user.email,vidDetails, watchedDuration)
@@ -64,9 +58,9 @@ const PlayVideo = (props) => {
 
   //USE EFFECT to update userSetting locally (not backed up to server)
   useEffect(() => {
-    let watchedDuration = localStorage.getItem(`watched_${props.id}`)
+    let watchedDuration = JSON.parse(localStorage.getItem(`watched_${props.id}`))?.played*100;
     const updatedUserSettingsInterval = setInterval(() => {
-            watchedDuration = localStorage.getItem(`watched_${props.id}`);
+            watchedDuration = JSON.parse(localStorage.getItem(`watched_${props.id}`))?.played*100;
             // Update the userSettings state to keep the data in sync
             // obj Structure >>> userWatched<ObjectArray>[x]: {percentWatched: Number, videoDetails: Object(Details of the video)} 
             if(isNaN(watchedDuration) || watchedDuration==null || watchedDuration==undefined) watchedDuration = 0;
@@ -84,25 +78,34 @@ const PlayVideo = (props) => {
     };
   }, [vidDetails,userSettings]);
 
-  const handleMetadataLoaded = () => {
-    const watchedDuration = localStorage.getItem(`watched_${props.id}`);
-    if (watchedDuration && videoRef.current != null && !isNaN(watchedDuration)) {
-      const currentTimeToSet = Math.round((parseFloat(watchedDuration) / 100) * videoRef.current.duration);
-      videoRef.current.currentTime = currentTimeToSet;
-    }
-  };
+  // const handleMetadataLoaded = () => {
+  //   const watchedDuration = localStorage.getItem(`watched_${props.id}`);
+  //   if (watchedDuration && videoRef.current != null && !isNaN(watchedDuration)) {
+  //     const currentTimeToSet = Math.round((parseFloat(watchedDuration) / 100) * videoRef.current.duration);
+  //     videoRef.current.currentTime = currentTimeToSet;
+  //   }
+  // };
 
-  const handleVideoTimeUpdate = () => {
-    if (videoRef.current) {
-      const watchedDuration = videoRef.current.currentTime;
-      const totalDuration = videoRef.current.duration;
-      localStorage.setItem(`watched_${props.id}`, (watchedDuration/totalDuration)*100);
+  // const handleVideoTimeUpdate = () => {
+  //   if (videoRef.current) {
+  //     const watchedDuration = videoRef.current.currentTime;
+  //     const totalDuration = videoRef.current.duration;
+  //     localStorage.setItem(`watched_${props.id}`, (watchedDuration/totalDuration)*100);
+  //   }
+  // };
+  const handleProgress = (data) => {
+    localStorage.setItem(`watched_${props.id}`, JSON.stringify(data));
+  }
+  const handlePlay =() =>{
+    let _played = JSON.parse(localStorage.getItem(`watched_${props.id}`))?.played;
+    _played=((!_played)?0:_played);
+    if(videoRef.current){
+      console.log("seeking to:",_played)
+      videoRef.current.seekTo(_played,"fraction");
+      videoRef.current.playing="true";
     }
-  };
-
-  return (
-    <div className="playVideo">
-      <video
+  } 
+    /* <video
         ref={videoRef}
         className="playVideo__video"
         src={(vidDetails&&vidDetails.vidVideoLink)?(vidDetails.vidVideoLink):"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"}
@@ -111,7 +114,17 @@ const PlayVideo = (props) => {
         onContextMenu={() => false}
         controlsList="nodownload"
         onTimeUpdate={handleVideoTimeUpdate}
-      />
+  /> */
+  if (!vidDetails) return null;
+
+  return (
+
+      <div className="playVideo">
+      <div className="playVideo__video" style={{ width:"100%" , height:"100%"}}>
+        <YouTubePlayer ref={videoRef} url={vidDetails?.vidYTBVideoLink}
+        onReady={handlePlay} light="true" loop="true"
+        onProgress={handleProgress} controls="true" width="100%" height="100%"/>
+      </div>
     </div>
   );
 };

@@ -13,6 +13,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
     <AuthContextProvider>
       <body className={inter.className}>
+      <script src="https://www.youtube.com/iframe_api" /> 
         {children}
       </body>
     </AuthContextProvider>

@@ -3,6 +3,7 @@ import { useState,useRef,useEffect } from "react";
 import "@/styles/Home/Card.css";
 import { LikeBtn,WatchListBtn, PlayBtn} from "@/utils/icons";
 import Link from "next/link";
+import YouTubePlayer from "react-player/youtube";
 
 
 export const Card = (props) => {
@@ -27,8 +28,8 @@ export const Card = (props) => {
       const isSmallScreen = window.innerWidth <= 768;
       setSmallScreen(isSmallScreen);
     };
-    const watchedDuration = localStorage.getItem(`watched_${props.vidDetails._id}`);
-    setPercentWatched(watchedDuration);
+    const watchedDuration = JSON.parse(localStorage.getItem(`watched_${props.vidDetails._id}`))?.played*100;
+    setPercentWatched(watchedDuration?watchedDuration:0);
   
     window.addEventListener("resize", handleResize);
     handleResize();
@@ -42,8 +43,9 @@ export const Card = (props) => {
   return (
     <div className='card' onPointerEnter={handleMouseEnter} onPointerLeave={handleMouseLeave}>
         <Link href={"/videoDetails/" + vidDetails?._id} >
-        {isVideoPlaying && !smallScreen && <video ref={videoRef}  className="card__video" 
-          src={vidDetails.vidVideoLink} alt={vidDetails.vidName} loop autoPlay muted ></video>}
+        {isVideoPlaying && !smallScreen &&  
+        <YouTubePlayer className="card__video" playing="true" muted="false" url={vidDetails?.vidYTBVideoLink}
+              loop="true" width="100%" height="100%"/>}
         <img className='card__image' src={(smallScreen)?vidDetails.vidPosterLink : vidDetails.vidBackdropLink}
          alt={vidDetails.vidName}></img>
       </Link>  

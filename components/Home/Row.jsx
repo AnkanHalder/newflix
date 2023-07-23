@@ -11,6 +11,24 @@ const Row = (props) => {
     const [scrollable, setScrollable] = useState({right:true, left:false});
     const rowCardsRef = useRef(null);
 
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const handleTouchStart = (e) => {
+        touchStartX = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e) => {
+        touchEndX = e.touches[0].clientX;
+        const scrollDistance = touchStartX - touchEndX;
+        rowCardsRef.current.scrollLeft += scrollDistance;
+        touchStartX = touchEndX;
+    };
+    const handleTouchEnd = () => {
+        stopScrolling();
+    };
+
     const startScrollLeft = () => {
         // Start scrolling left
         if (!scrollInterval) {
@@ -83,6 +101,9 @@ const Row = (props) => {
                 <div className="row__buttons">
                     <button className="row__button scrollLeft" 
                         style={{visibility:(scrollable.left)?"visible":"hidden"}}
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
                         onPointerDown={startScrollLeft} 
                          onPointerUp={stopScrolling}>Scroll Left</button>
                     <button className="row__button scrollRight" 
