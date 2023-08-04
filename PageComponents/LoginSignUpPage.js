@@ -4,10 +4,13 @@ import "@/styles/LoginSignUp/LoginSignUp.css";
 import GoogleButton from 'react-google-button'
 import { UserAuth } from '@/context/authContext';
 import PopUp from '@/utils/PopUp';
+import LoadingPage from './LoadingPage';
 
 const LoginSignUpPage = () => {
   const {user,googleSignIn,logOut} = UserAuth();
+  const [loading,setLoading] = useState(false);
   const handleGoogleLogin = async () =>{
+    setLoading(true);
     try{
       await googleSignIn();
     } catch(e){
@@ -16,6 +19,7 @@ const LoginSignUpPage = () => {
   } 
   return (
     <div className='loginSignUpPage'>
+    {loading && <LoadingPage />}
     <PopUp />
         <div className='form__container'>
             <div className="login1">
